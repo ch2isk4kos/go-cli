@@ -18,21 +18,21 @@ func main() {
 	// CREATE FLAGS
 	fs := []cli.Flag{
 		cli.StringFlag{
-			Name: "host"
-			Value: "https://www.google.com"
-		}
+			Name: "host",
+			Value: "https://www.google.com",
+		},
 	}
 
 	// CREATE COMMANDS
-	app.Commands = [].cli.Command{
+	app.Commands = []cli.Command{
 		{
-			Name: "nser"
+			Name: "nser",
 			Usage: "name server lookup for specified host",
 			Flags: fs,
 
 			// THE CODE THAT WILL EXECUTE
 			Action: func(c *cli.Context) error {
-				nr, err := net.LookupNS(c.String("url"))
+				ns, err := net.LookupNS(c.String("url"))
 				if err != nil {
 					log.Fatalln(err)
 				}
