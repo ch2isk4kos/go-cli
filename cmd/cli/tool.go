@@ -26,7 +26,11 @@ func main() {
 
 	// CREATE COMMANDS
 	app.Commands = [].cli.Commands{
-		
+		{
+			Name: "nser"
+			Usage: "name server lookup for specified host",
+			Flags: fs, 
+		}		
 	}
 	
 	err := cli.NewApp().Run(os.Args)
