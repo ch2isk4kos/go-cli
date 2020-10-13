@@ -37,6 +37,8 @@ func main() {
 	// }
 
 	// fmt.Println("flags: ", fs)
+	// var input string
+	// fmt.Scanf("%s", input)
 
 	app.Commands = []*cli.Command{
 		{
@@ -45,7 +47,7 @@ func main() {
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "host",
-					Value: "https://www.golang.org",
+					Value: "your domain",
 				},
 			},
 			Action: func(c *cli.Context) error {
@@ -58,8 +60,8 @@ func main() {
 				// 	fmt.Println("Host: ", ns[i].Host)	
 				// }
 
-				for _, v := range ns {
-					fmt.Println("Host: ", v.Host)	
+				for i, v := range ns {
+					fmt.Printf("Host %v: %v\n", i+1, v.Host)	
 				}
 				return nil
 			},
@@ -70,21 +72,22 @@ func main() {
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "net",
-					Value: "https://www.golang.org",
+					Value: "google",
 				},
 			},
 			Action: func(c *cli.Context) error {
+				// h, err := net.LookupHost("")
 				h, err := net.LookupHost(c.String("net"))
-				// h, err := net.LookupHost("com")
 				if err != nil {
 					log.Fatal(err)
 				}
 
-				// fmt.Println("net server: ", ns)
-
 				for i := 0; i < len(h); i++ {
-					hosts := strings.SplitAfter(h[i], " ") 
-					fmt.Println("network host: ", hosts)	
+					hosts := strings.SplitAfter(h[i], " ")
+					if len(hosts) == 0 {
+						fmt.Println("No Hosts Found.")
+					} 
+					fmt.Println("Network Host: ", hosts)	
 				}
 				return nil
 			},
@@ -94,19 +97,32 @@ func main() {
 			Usage: "get ip of domain",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
-					Name: "host",
+					Name: "ipa",
+					Value: "localhost",
 				},
 			},
 			Action: func(c *cli.Context) error {
-				ip, err := net.LookupIP(c.String("host"))
+				// ip, err := net.LookupIP(c.String("url"))
+				ip, err := net.LookupIP("https://www.golang.org")
+				// ip, err := net.LookupIP("localhost")
+				// ip, err := net.LookupIPAddr(c)
+
 				if err != nil {
 					log.Fatal(err)
 				}
 
-				// fmt.Println("net server: ", ip)
+				fmt.Println("ip: ", ip)
+
+				// for i := 0; i < len(ip); i++ {
+				// 	fmt.Println("host ip: ", ip[i])	
+				// }
 
 				for i := 0; i < len(ip); i++ {
-					fmt.Println("host ip: ", ip[i])	
+					addr := strings.SplitAfter(ip[i].String(), " ")
+					if len(addr) == 0 {
+						fmt.Println("No Hosts Found.")
+					} 
+					fmt.Println("IP Address: ", addr)	
 				}
 				return nil
 			},
