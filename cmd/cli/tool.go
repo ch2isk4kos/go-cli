@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
 	"log"
 	"os"
 
@@ -9,17 +9,28 @@ import (
 )
 
 func main() {
-	app := &cli.App{
-		Name: "test",
-		Usage: "a test command",
-		Action: func(c *cli.Context) error {
-			fmt.Println("Testing...Testing...")
-			return nil
-		},
-	}
+  // (&cli.App{}).Run(os.Args)
+	
+	// app := &cli.App{
+	// 	Name: "application name",
+	// 	Usage: "application description",
+	// 	Action: func(c *cli.Context) error {
+	// 		fmt.Println("write something here to help navigate")
+	// 		fmt.Printf("%q\n", c.Args().Get(1))
+	// 		return nil
+	// 	},
+	// }
+
+	app := cli.NewApp()
+	app.Name = "name of application"
+	app.Usage = "application description"
+	// app.Action = func(c *cli.Context) error {
+	// 			fmt.Println("write something here to help navigate")
+	// 			return nil
+	// }
 
 	err := app.Run(os.Args)
 	if err != nil {
 		log.Fatal(err)
-	} 
+	}
 }
