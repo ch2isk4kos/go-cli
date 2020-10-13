@@ -29,6 +29,13 @@ func main() {
 	// 			return nil
 	// }
 
+	app.Flags = []cli.Flag {		
+		&cli.StringFlag{
+			Name: "flag-name",
+			Value: "default-value",
+		},
+	}
+	// fmt.Println("flags: ")
 	err := app.Run(os.Args)
 	if err != nil {
 		log.Fatal(err)
