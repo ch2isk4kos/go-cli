@@ -122,6 +122,28 @@ func main() {
 			},
 		},
 		{
+			Name: "grdda",
+			Usage: "get reverse lookup for address",
+			Flags: []cli.Flag {		
+				&cli.StringFlag{
+					Name: "rev",
+					Value: "reverse address",
+				},
+			},
+			Action: func(c *cli.Context) error {
+				addrs, err := net.LookupAddr(c.String("rev"))
+
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				for _, v := range addrs {
+					fmt.Printf("Address: %s\n", v)	
+				}
+				return nil
+			},
+		},
+		{
 			Name: "gport",
 			Usage: "get tcp port of domain",
 			Flags: []cli.Flag {		
