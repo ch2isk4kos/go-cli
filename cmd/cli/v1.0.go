@@ -1,4 +1,4 @@
-package main
+package test
 
 import ( 
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"github.com/urfave/cli" 
 )
 
-func main() {
+func test() {
 	// ENTRY POINT
 	app := cli.NewApp()
 	app.Name = "Web Query CLI"
