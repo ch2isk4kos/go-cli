@@ -92,25 +92,20 @@ func main() {
 			},
 		},
 		{
-			Name: "gip",
-			Usage: "get ip of domain",
+			Name: "gaddr",
+			Usage: "get IP address of domain",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "ipa",
-					Value: "localhost",
+					Value: "IP address",
 				},
 			},
 			Action: func(c *cli.Context) error {
-				// ip, err := net.LookupIP(c.String("url"))
-				ip, err := net.LookupIP("https://www.golang.org")
-				// ip, err := net.LookupIP("localhost")
-				// ip, err := net.LookupIPAddr(c)
+				ip, err := net.LookupIP(c.String("ipa"))
 
 				if err != nil {
 					log.Fatal(err)
 				}
-
-				fmt.Println("ip: ", ip)
 
 				// for i := 0; i < len(ip); i++ {
 				// 	fmt.Println("host ip: ", ip[i])	
