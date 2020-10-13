@@ -43,7 +43,7 @@ func main() {
 	app.Commands = []*cli.Command{
 		{
 			Name: "gname",
-			Usage: "get NS records of domain",
+			Usage: "get ns records of domain",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "host",
@@ -93,7 +93,7 @@ func main() {
 		},
 		{
 			Name: "gaddr",
-			Usage: "get IP address of domain",
+			Usage: "get ip address of domain",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "ipa",
@@ -101,7 +101,7 @@ func main() {
 				},
 			},
 			Action: func(c *cli.Context) error {
-				ip, err := net.LookupIP(c.String("ipa"))
+				ips, err := net.LookupIP(c.String("ipa"))
 
 				if err != nil {
 					log.Fatal(err)
@@ -111,13 +111,36 @@ func main() {
 				// 	fmt.Println("host ip: ", ip[i])	
 				// }
 
-				for i := 0; i < len(ip); i++ {
-					addr := strings.SplitAfter(ip[i].String(), " ")
+				for i := 0; i < len(ips); i++ {
+					addr := strings.SplitAfter(ips[i].String(), " ")
 					if len(addr) == 0 {
 						fmt.Println("No Hosts Found.")
 					} 
 					fmt.Println("IP Address: ", addr)	
 				}
+				return nil
+			},
+		},
+		{
+			Name: "gport",
+			Usage: "get tcp port of domain",
+			Flags: []cli.Flag {		
+				&cli.StringFlag{
+					Name: "num",
+					Value: "port",
+				},
+			},
+			Action: func(c *cli.Context) error {
+				pTCP, err := net.LookupPort("tcp", "domain")
+				pUDP, err := net.LookupPort("udp", "domain")
+				
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				fmt.Printf("TCP Port: %d\n", pTCP)
+				fmt.Printf("UDP Port: %d\n", pUDP)
+
 				return nil
 			},
 		},
