@@ -1,8 +1,9 @@
 package main
 
 import (
-	// "fmt"
+	"fmt"
 	"log"
+	"net"
 	"os"
 
 	"github.com/urfave/cli/v2"
@@ -25,18 +26,42 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "name of application"
 	app.Usage = "application description"
-	// app.Action = func(c *cli.Context) error {
-	// 			fmt.Println("write something here to help navigate")
-	// 			return nil
+
+	// flags
+	// fs := []cli.Flag {		
+	// 	&cli.StringFlag{
+	// 		Name: "flag-name",
+	// 		Value: "default-value",
+	// 	},
 	// }
 
-	app.Flags = []cli.Flag {		
-		&cli.StringFlag{
-			Name: "flag-name",
-			Value: "default-value",
+	// fmt.Println("flags: ", fs)
+
+	app.Commands = []*cli.Command{
+		{
+			Name: "ghost",
+			Usage: "get network host of url provided",
+			Flags: []cli.Flag {		
+				&cli.StringFlag{
+					Name: "flag-name",
+					Value: "google.com",
+				},
+			},
+			Action: func(c *cli.Context) error {
+				ns, err := net.LookupNS("com")
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				// fmt.Println("net server: ", ns)
+
+				for i := 0; i < len(ns); i++ {
+					fmt.Println("network host: ", ns[i].Host)	
+				}
+				return nil
+			},
 		},
 	}
-
 
 	// Run Application
 	err := app.Run(os.Args)
@@ -44,3 +69,5 @@ func main() {
 		log.Fatal(err)
 	}
 }
+
+
