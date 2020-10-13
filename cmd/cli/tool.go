@@ -13,8 +13,7 @@ func main() {
 	// ENTRY POINT
 	app := cli.NewApp()
 	app.Name = "Web Query CLII"
-	app.Usage = "query  IPs, CNAMEs, MX records and Name Servers!"
-	
+	app.Usage = "query  IPs, CNAMEs, MX records and Name Servers"	
 	
 	// CREATE FLAGS
 	fs := []cli.Flag{
@@ -25,7 +24,7 @@ func main() {
 	}
 
 	// CREATE COMMANDS
-	app.Commands = [].cli.Commands{
+	app.Commands = [].cli.Command{
 		{
 			Name: "nser"
 			Usage: "name server lookup for specified host",
