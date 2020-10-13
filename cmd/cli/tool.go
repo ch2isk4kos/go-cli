@@ -7,8 +7,6 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func main() {
-	fmt.Println("Oh, hello")
-	
+func main() {	
 	(&cli.App{}).Run(os.Args)
 }
