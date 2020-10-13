@@ -47,7 +47,7 @@ func main() {
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "host",
-					Value: "your domain",
+					Value: "NS records",
 				},
 			},
 			Action: func(c *cli.Context) error {
@@ -72,11 +72,10 @@ func main() {
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "net",
-					Value: "google",
+					Value: "network host",
 				},
 			},
 			Action: func(c *cli.Context) error {
-				// h, err := net.LookupHost("")
 				h, err := net.LookupHost(c.String("net"))
 				if err != nil {
 					log.Fatal(err)
