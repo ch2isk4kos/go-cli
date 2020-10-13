@@ -20,7 +20,7 @@ func main() {
 	fs := []cli.Flag{
 		cli.StringFlag{
 			Name: "host"
-			Value: "Chris Kakos"
+			Value: "https://www.google.com"
 		}
 	}
 
@@ -46,7 +46,8 @@ func main() {
 			},
 		},	
 	}
-	
+
+	// START APPLICATION
 	err := cli.NewApp().Run(os.Args)
 	if err != nil {
 		log.Fatal(err)
