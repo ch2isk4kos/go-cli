@@ -12,13 +12,14 @@ import (
 func main() {
 	// ENTRY POINT
 	app := cli.NewApp()
-	app.Name = "Web Query CLII"
-	app.Usage = "query  IPs, CNAMEs, MX records and Name Servers"	
+	app.Name = "Web Query CLI"
+	app.Usage = "query IPs, CNAMEs, MX records and Name Servers"	
 	
 	// CREATE FLAGS
 	fs := []cli.Flag{
 		cli.StringFlag{
 			Name: "host",
+			Usage: "google lookup",
 			Value: "https://www.google.com",
 		},
 	}
@@ -26,15 +27,16 @@ func main() {
 	// CREATE COMMANDS
 	app.Commands = []cli.Command{
 		{
-			Name: "nser",
+			Name: "ns",
 			Usage: "name server lookup for specified host",
 			Flags: fs,
 
 			// THE CODE THAT WILL EXECUTE
-			Action: func(c *cli.Context) error {
+			Action: func(c *cli.Context) error{
 				ns, err := net.LookupNS(c.String("url"))
 				if err != nil {
-					log.Fatalln(err)
+					fmt.Println("err: ", err)
+					return err
 				}
 				
 				// LOG TO CONSOLE
@@ -47,7 +49,7 @@ func main() {
 	}
 
 	// START APPLICATION
-	err := cli.NewApp().Run(os.Args)
+	err := app.Run(os.Args)
 	if err != nil {
 		log.Fatal(err)
 	}
