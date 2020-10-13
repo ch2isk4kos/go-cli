@@ -21,6 +21,7 @@ func main() {
 	// 	},
 	// }
 
+	// instantiate application
 	app := cli.NewApp()
 	app.Name = "name of application"
 	app.Usage = "application description"
@@ -35,7 +36,9 @@ func main() {
 			Value: "default-value",
 		},
 	}
-	// fmt.Println("flags: ")
+
+
+	// Run Application
 	err := app.Run(os.Args)
 	if err != nil {
 		log.Fatal(err)
