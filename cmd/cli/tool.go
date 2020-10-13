@@ -29,8 +29,22 @@ func main() {
 		{
 			Name: "nser"
 			Usage: "name server lookup for specified host",
-			Flags: fs, 
-		}		
+			Flags: fs,
+
+			// THE CODE THAT WILL EXECUTE
+			Action: func(c *cli.Context) error {
+				nr, err := net.LookupNS(c.String("url"))
+				if err != nil {
+					log.Fatalln(err)
+				}
+				
+				// LOG TO CONSOLE
+				for i := 0; i < len(ns); i++ {
+					fmt.Println(ns[i].Host)
+				}
+				return nil
+			},
+		},	
 	}
 	
 	err := cli.NewApp().Run(os.Args)
