@@ -5,6 +5,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"strings"
 
 	"github.com/urfave/cli/v2"
 )
@@ -24,8 +25,8 @@ func main() {
 
 	// instantiate application
 	app := cli.NewApp()
-	app.Name = "name of application"
-	app.Usage = "application description"
+	app.Name = "Go CLI Lookup"
+	app.Usage = "Command Line Interface tool that handles automated network queries."
 
 	// flags
 	// fs := []cli.Flag {		
@@ -39,47 +40,73 @@ func main() {
 
 	app.Commands = []*cli.Command{
 		{
-			Name: "ghost",
-			Usage: "get network host of url provided",
+			Name: "gname",
+			Usage: "get NS records of domain",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "host",
-					Value: "geeksforgeeks.org",
+					Value: "https://www.golang.org",
 				},
 			},
 			Action: func(c *cli.Context) error {
-				ns, err := net.LookupNS(c.String("host"))
+				ns, err := net.LookupNS("host")
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				// for i := 0; i < len(ns); i++ {
+				// 	fmt.Println("Host: ", ns[i].Host)	
+				// }
+
+				for _, v := range ns {
+					fmt.Println("Host: ", v.Host)	
+				}
+				return nil
+			},
+		},
+		{
+			Name: "ghost",
+			Usage: "get network host of domain",
+			Flags: []cli.Flag {		
+				&cli.StringFlag{
+					Name: "net",
+					Value: "https://www.golang.org",
+				},
+			},
+			Action: func(c *cli.Context) error {
+				h, err := net.LookupHost(c.String("net"))
+				// h, err := net.LookupHost("com")
 				if err != nil {
 					log.Fatal(err)
 				}
 
 				// fmt.Println("net server: ", ns)
 
-				for i := 0; i < len(ns); i++ {
-					fmt.Println("network host: ", ns[i].Host)	
+				for i := 0; i < len(h); i++ {
+					hosts := strings.SplitAfter(h[i], " ") 
+					fmt.Println("network host: ", hosts)	
 				}
 				return nil
 			},
 		},
 		{
 			Name: "gip",
-			Usage: "get ip of url provided",
+			Usage: "get ip of domain",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
-					Name: "flag-name",
-					Value: "google.com",
+					Name: "host",
 				},
 			},
 			Action: func(c *cli.Context) error {
-				ns, err := net.LookupNS("com")
+				ip, err := net.LookupIP(c.String("host"))
 				if err != nil {
 					log.Fatal(err)
 				}
 
-				// fmt.Println("net server: ", ns)
+				// fmt.Println("net server: ", ip)
 
-				for i := 0; i < len(ns); i++ {
-					fmt.Println("network host: ", ns[i].Host)	
+				for i := 0; i < len(ip); i++ {
+					fmt.Println("host ip: ", ip[i])	
 				}
 				return nil
 			},
