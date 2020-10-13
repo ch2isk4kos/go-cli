@@ -43,6 +43,29 @@ func main() {
 			Usage: "get network host of url provided",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
+					Name: "host",
+					Value: "geeksforgeeks.org",
+				},
+			},
+			Action: func(c *cli.Context) error {
+				ns, err := net.LookupNS(c.String("host"))
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				// fmt.Println("net server: ", ns)
+
+				for i := 0; i < len(ns); i++ {
+					fmt.Println("network host: ", ns[i].Host)	
+				}
+				return nil
+			},
+		},
+		{
+			Name: "gip",
+			Usage: "get ip of url provided",
+			Flags: []cli.Flag {		
+				&cli.StringFlag{
 					Name: "flag-name",
 					Value: "google.com",
 				},
