@@ -70,16 +70,17 @@ func main() {
 			Usage: "get ip address of domain",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
-					Name: "ipa",
-					Value: "IP address",
+					Name: "ip",
+					Value: "google.com",
 				},
 			},
 			Action: func(c *cli.Context) error {
-				ips, err := net.LookupIP(c.String("ipa"))
+				ips, err := net.LookupIP(c.String("ip"))
 				if err != nil {
 					log.Fatal(err)
 				}
-
+				fmt.Println("")
+				
 				for i := 0; i < len(ips); i++ {
 					addr := strings.SplitAfter(ips[i].String(), " ")
 					if len(addr) == 0 {
@@ -87,6 +88,7 @@ func main() {
 					} 
 					fmt.Println("IP Address: ", addr)	
 				}
+				fmt.Println("")
 				return nil
 			},
 		},
