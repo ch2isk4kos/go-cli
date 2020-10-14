@@ -98,7 +98,7 @@ func main() {
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "rev",
-					Value: "reverse address",
+					Value: "8.8.8.8",
 				},
 			},
 			Action: func(c *cli.Context) error {
@@ -109,7 +109,8 @@ func main() {
 				}
 
 				for _, v := range addrs {
-					fmt.Printf("Address: %s\n", v)	
+					fmt.Printf("\nReverse Address: %s\n", v)
+					fmt.Println("")
 				}
 				return nil
 			},
