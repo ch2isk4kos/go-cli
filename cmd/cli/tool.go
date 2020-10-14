@@ -13,9 +13,18 @@ import (
 func main() {
 	// instantiate application
 	app := cli.NewApp()
-	app.Name = "Go CLI Lookup"
-	app.Usage = "Command Line Interface tool that handles automated network queries."
-
+	
+	app.Name = "Google CLI Lookup"
+	app.Usage = "Built With Go."
+	app.Version = "v1.3"
+	app.Description = "A Network Query Command Line Interface Lookup Tool"
+	app.Authors = []*cli.Author{
+		&cli.Author{
+			Name: "Chris Kakos",
+			Email: "",
+		},
+	}
+	
 	app.Commands = []*cli.Command{
 		{
 			Name: "gname",
@@ -203,5 +212,3 @@ func main() {
 		log.Fatal(err)
 	}
 }
-
-
