@@ -117,7 +117,7 @@ func main() {
 		},
 		{
 			Name: "gport",
-			Usage: "get tcp port of domain",
+			Usage: "Get Port Number of Utility",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "ntwk",
