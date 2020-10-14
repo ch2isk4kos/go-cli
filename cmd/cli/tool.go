@@ -168,28 +168,30 @@ func main() {
 			Flags: []cli.Flag {
 				&cli.StringFlag{
 					Name: "cn",
-					Value: "cname",
+					Value: "xmpp-server",
 				},
 				&cli.StringFlag{
-					Name: "proto",
-					Value: "protocol",
+					Name: "ntwk",
+					Value: "tcp",
 				},
 				&cli.StringFlag{
 					Name: "host",
-					Value: "domain",
+					Value: "google.com",
 				},
 			},
 			Action: func(c *cli.Context) error {
-				cname, srvs, err := net.LookupSRV(c.String("cn"), c.String("proto"), c.String("host"))
+				cname, srvcs, err := net.LookupSRV(c.String("cn"), c.String("ntwk"), c.String("host"))
 				if err != nil {
 					log.Fatal(err)
 				}
 
 				fmt.Printf("\nCNAME: %s\n\n", cname)
 
-				for _, srv := range srvs {
-					fmt.Printf("TARGET: %v\tPORT: %v\tPRIORITY: %v\tWEIGHT: %v\n", srv.Target, srv.Port, srv.Priority, srv.Weight)
+				for _, srv := range srvcs {
+					fmt.Printf("Target: %v\tPort: %v\tPriority: %v\tWeight: %v\n", srv.Target, srv.Port, srv.Priority, srv.Weight)
 				}
+
+				fmt.Println("")
 				return nil
 			},
 		},
