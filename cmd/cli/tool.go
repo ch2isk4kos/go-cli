@@ -192,6 +192,43 @@ func main() {
 				return nil
 			},
 		},
+		{
+			Name: "gsrv",
+			Usage: "get srv query of service - protocol - domain",
+			Flags: []cli.Flag {
+				&cli.StringFlag{
+					Name: "cn",
+					Value: "CNAME",
+				},
+				&cli.StringFlag{
+					Name: "proto",
+					Value: "protocol",
+				},
+				&cli.StringFlag{
+					Name: "host",
+					Value: "domain",
+				},
+			},
+			Action: func(c *cli.Context) error {
+				cname, srvs, err := net.LookupSRV(c.String("cn"), c.String("proto"), c.String("host"))
+				// mxr, err := net.LookupMX("domain")
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				fmt.Printf("\nCNAME: %s\n\n", cname)
+
+				// for i := 0; i < len(mx); i++{
+				// 	fmt.Println(mx[i].Host, mx[i].Pref)
+				// }
+
+				for _, srv := range srvs {
+					// fmt.Printf("Target: %v\tPort: %v\tPriority: %v\tWeight: %v\n", srv.Target, srv.Port, srv.Priority, srv.Weight)
+					fmt.Printf("TARGET: %v\tPORT: %v\tPRIORITY: %v\tWEIGHT: %v\n", srv.Target, srv.Port, srv.Priority, srv.Weight)
+				}
+				return nil
+			},
+		},
 	}
 
 	// Run Application
