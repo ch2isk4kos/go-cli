@@ -94,7 +94,7 @@ func main() {
 		},
 		{
 			Name: "grdda",
-			Usage: "get reverse lookup for address",
+			Usage: "Get Reverse Lookup for Address",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "rev",
