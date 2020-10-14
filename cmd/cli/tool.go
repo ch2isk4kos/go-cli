@@ -140,7 +140,7 @@ func main() {
 		},
 		{
 			Name: "gmx",
-			Usage: "get mx records of domain",
+			Usage: "Get MX Records of Domain",
 			Flags: []cli.Flag {
 				&cli.StringFlag{
 					Name: "host",
