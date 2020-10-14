@@ -164,7 +164,7 @@ func main() {
 		},
 		{
 			Name: "gsrv",
-			Usage: "get srv query of service - protocol - domain",
+			Usage: "Get SRV Query of Service - Network (tcp/udp) - Domain",
 			Flags: []cli.Flag {
 				&cli.StringFlag{
 					Name: "cn",
