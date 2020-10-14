@@ -144,7 +144,7 @@ func main() {
 			Flags: []cli.Flag {
 				&cli.StringFlag{
 					Name: "host",
-					Value: "mx records",
+					Value: "google.com",
 				},
 			},
 			Action: func(c *cli.Context) error {
@@ -152,10 +152,13 @@ func main() {
 				if err != nil {
 					log.Fatal(err)
 				}
+				fmt.Println("")
 
 				for _, mx := range mxr {
-					fmt.Printf("Host: %s\nPref: %v", mx.Host, mx.Pref)
+					fmt.Printf("Host: %s\tPref: %v\n", mx.Host, mx.Pref)
 				}
+
+				fmt.Println("")
 				return nil
 			},
 		},
