@@ -19,15 +19,15 @@ func main() {
 	app.Commands = []*cli.Command{
 		{
 			Name: "gname",
-			Usage: "get ns records of domain",
+			Usage: "Get NS Records of Domain",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "host",
-					Value: "NS records",
+					Value: "google.com",
 				},
 			},
 			Action: func(c *cli.Context) error {
-				ns, err := net.LookupNS("host")
+				ns, err := net.LookupNS(c.String("host"))
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -159,7 +159,7 @@ func main() {
 			Flags: []cli.Flag {
 				&cli.StringFlag{
 					Name: "cn",
-					Value: "CNAME",
+					Value: "cname",
 				},
 				&cli.StringFlag{
 					Name: "proto",
