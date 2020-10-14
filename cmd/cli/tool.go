@@ -11,34 +11,10 @@ import (
 )
 
 func main() {
-  // (&cli.App{}).Run(os.Args)
-	
-	// app := &cli.App{
-	// 	Name: "application name",
-	// 	Usage: "application description",
-	// 	Action: func(c *cli.Context) error {
-	// 		fmt.Println("write something here to help navigate")
-	// 		fmt.Printf("%q\n", c.Args().Get(1))
-	// 		return nil
-	// 	},
-	// }
-
 	// instantiate application
 	app := cli.NewApp()
 	app.Name = "Go CLI Lookup"
 	app.Usage = "Command Line Interface tool that handles automated network queries."
-
-	// flags
-	// fs := []cli.Flag {		
-	// 	&cli.StringFlag{
-	// 		Name: "flag-name",
-	// 		Value: "default-value",
-	// 	},
-	// }
-
-	// fmt.Println("flags: ", fs)
-	// var input string
-	// fmt.Scanf("%s", input)
 
 	app.Commands = []*cli.Command{
 		{
@@ -55,10 +31,6 @@ func main() {
 				if err != nil {
 					log.Fatal(err)
 				}
-
-				// for i := 0; i < len(ns); i++ {
-				// 	fmt.Println("Host: ", ns[i].Host)	
-				// }
 
 				for i, v := range ns {
 					fmt.Printf("Host %v: %v\n", i+1, v.Host)	
@@ -102,14 +74,9 @@ func main() {
 			},
 			Action: func(c *cli.Context) error {
 				ips, err := net.LookupIP(c.String("ipa"))
-
 				if err != nil {
 					log.Fatal(err)
 				}
-
-				// for i := 0; i < len(ip); i++ {
-				// 	fmt.Println("host ip: ", ip[i])	
-				// }
 
 				for i := 0; i < len(ips); i++ {
 					addr := strings.SplitAfter(ips[i].String(), " ")
@@ -155,7 +122,6 @@ func main() {
 			Action: func(c *cli.Context) error {
 				pTCP, err := net.LookupPort("tcp", "domain")
 				pUDP, err := net.LookupPort("udp", "domain")
-				
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -177,14 +143,9 @@ func main() {
 			},
 			Action: func(c *cli.Context) error {
 				mxr, err := net.LookupMX(c.String("host"))
-				// mxr, err := net.LookupMX("domain")
 				if err != nil {
 					log.Fatal(err)
 				}
-
-				// for i := 0; i < len(mx); i++{
-				// 	fmt.Println(mx[i].Host, mx[i].Pref)
-				// }
 
 				for _, mx := range mxr {
 					fmt.Printf("Host: %s\nPref: %v", mx.Host, mx.Pref)
@@ -211,19 +172,13 @@ func main() {
 			},
 			Action: func(c *cli.Context) error {
 				cname, srvs, err := net.LookupSRV(c.String("cn"), c.String("proto"), c.String("host"))
-				// mxr, err := net.LookupMX("domain")
 				if err != nil {
 					log.Fatal(err)
 				}
 
 				fmt.Printf("\nCNAME: %s\n\n", cname)
 
-				// for i := 0; i < len(mx); i++{
-				// 	fmt.Println(mx[i].Host, mx[i].Pref)
-				// }
-
 				for _, srv := range srvs {
-					// fmt.Printf("Target: %v\tPort: %v\tPriority: %v\tWeight: %v\n", srv.Target, srv.Port, srv.Priority, srv.Weight)
 					fmt.Printf("TARGET: %v\tPORT: %v\tPRIORITY: %v\tWEIGHT: %v\n", srv.Target, srv.Port, srv.Priority, srv.Weight)
 				}
 				return nil
