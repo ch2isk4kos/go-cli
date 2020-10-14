@@ -19,7 +19,7 @@ func main() {
 	app.Commands = []*cli.Command{
 		{
 			Name: "gname",
-			Usage: "Get NS Records of Domain",
+			Usage: "Get NameServer Records of Domain",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "host",
