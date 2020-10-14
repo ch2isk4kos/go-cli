@@ -166,6 +166,32 @@ func main() {
 				return nil
 			},
 		},
+		{
+			Name: "gmx",
+			Usage: "get mx records of domain",
+			Flags: []cli.Flag {
+				&cli.StringFlag{
+					Name: "host",
+					Value: "mx records",
+				},
+			},
+			Action: func(c *cli.Context) error {
+				mxr, err := net.LookupMX(c.String("host"))
+				// mxr, err := net.LookupMX("domain")
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				// for i := 0; i < len(mx); i++{
+				// 	fmt.Println(mx[i].Host, mx[i].Pref)
+				// }
+
+				for _, mx := range mxr {
+					fmt.Printf("Host: %s\nPref: %v", mx.Host, mx.Pref)
+				}
+				return nil
+			},
+		},
 	}
 
 	// Run Application
