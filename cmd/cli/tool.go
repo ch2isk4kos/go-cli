@@ -120,20 +120,21 @@ func main() {
 			Usage: "get tcp port of domain",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
-					Name: "num",
-					Value: "port",
+					Name: "ntwk",
+					Value: "tcp",
+				},
+				&cli.StringFlag{
+					Name: "srvc",
+					Value: "domain",
 				},
 			},
 			Action: func(c *cli.Context) error {
-				pTCP, err := net.LookupPort("tcp", "domain")
-				pUDP, err := net.LookupPort("udp", "domain")
+				port, err := net.LookupPort(c.String("ntwk"), c.String("srvc"))
 				if err != nil {
 					log.Fatal(err)
 				}
-
-				fmt.Printf("TCP Port: %d\n", pTCP)
-				fmt.Printf("UDP Port: %d\n", pUDP)
-
+				
+				fmt.Printf("Port: %d\n\n", port)
 				return nil
 			},
 		},
