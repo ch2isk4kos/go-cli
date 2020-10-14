@@ -40,7 +40,7 @@ func main() {
 		},
 		{
 			Name: "ghost",
-			Usage: "get network host of domain",
+			Usage: "Get Network Host of Domain",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "net",
