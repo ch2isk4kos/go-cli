@@ -67,7 +67,7 @@ func main() {
 		},
 		{
 			Name: "gaddr",
-			Usage: "get ip address of domain",
+			Usage: "Get IP Address of Domain",
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "ip",
