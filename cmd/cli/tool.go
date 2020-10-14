@@ -44,7 +44,7 @@ func main() {
 			Flags: []cli.Flag {		
 				&cli.StringFlag{
 					Name: "net",
-					Value: "network host",
+					Value: "www.google.com",
 				},
 			},
 			Action: func(c *cli.Context) error {
@@ -52,14 +52,16 @@ func main() {
 				if err != nil {
 					log.Fatal(err)
 				}
+				fmt.Println("")
 
 				for i := 0; i < len(h); i++ {
 					hosts := strings.SplitAfter(h[i], " ")
 					if len(hosts) == 0 {
 						fmt.Println("No Hosts Found.")
-					} 
+					}
 					fmt.Println("Network Host: ", hosts)	
 				}
+				fmt.Println("")
 				return nil
 			},
 		},
